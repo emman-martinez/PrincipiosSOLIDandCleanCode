@@ -35,10 +35,10 @@
   const numberOfFilesInDirectory = 33;
 
   // primer nombre - first name
-  const firstName = "Fernando";
+  const firstName = "Emmanuel";
 
   // primer apellido - last name
-  const lastName = "Herrera";
+  const lastName = "Martínez";
 
   // días desde la última modificación - days since modification
   const daysSinceLastModification = 12;
