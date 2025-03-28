@@ -17,6 +17,50 @@
     ) {}
   }
 
-  const newPerson = new Person("John Doe", "M", new Date("1990-01-01"));
-  console.log({ newPerson });
+  class User extends Person {
+    public lastAccess: Date;
+
+    constructor(
+      public email: string,
+      public role: string,
+      name: string,
+      gender: Gender,
+      birthday: Date
+    ) {
+      super(name, gender, birthday);
+      this.lastAccess = new Date();
+    }
+
+    checkCredentials() {
+      return true;
+    }
+  }
+
+  class UserSettings extends User {
+    constructor(
+      public workingDirectory: string,
+      public lastOpenFolder: string,
+      email: string,
+      role: string,
+      name: string,
+      gender: Gender,
+      birthday: Date
+    ) {
+      super(email, role, name, gender, birthday);
+    }
+  }
+
+  const userSettings = new UserSettings(
+    "/home/user",
+    "/home/user/projects",
+    "email@email.com",
+    "admin",
+    "User Name",
+    "M",
+    new Date("2000-01-01")
+  );
+
+  console.log({
+    userSettings,
+  });
 })();
