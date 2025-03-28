@@ -1,5 +1,6 @@
 (() => {
-  // No apply the Single Responsibility Principle
+  // Applying the Single Responsibility Principle
+  // Prioritize the composition over inheritance
 
   type Gender = "M" | "F";
 
@@ -21,18 +22,17 @@
     }
   }
 
-  interface UserProps extends PersonProps {
+  interface UserProps {
     email: string;
     role: string;
   }
 
-  class User extends Person {
+  class User {
     public email: string;
     public lastAccess: Date;
     public role: string;
 
-    constructor({ email, role, name, gender, birthdate }: UserProps) {
-      super({ name, gender, birthdate });
+    constructor({ email, role }: UserProps) {
       this.email = email;
       this.lastAccess = new Date();
       this.role = role;
@@ -43,14 +43,35 @@
     }
   }
 
-  interface UserSettingsProps extends UserProps {
+  interface SettingsProps {
     lastOpenFolder: string;
     workingDirectory: string;
   }
 
-  class UserSettings extends User {
+  class Settings {
     public lastOpenFolder: string;
     public workingDirectory: string;
+
+    constructor({ lastOpenFolder, workingDirectory }: SettingsProps) {
+      this.lastOpenFolder = lastOpenFolder;
+      this.workingDirectory = workingDirectory;
+    }
+  }
+
+  interface UserSettingsProps extends UserProps {
+    name: string;
+    gender: Gender;
+    birthdate: Date;
+    email: string;
+    role: string;
+    lastOpenFolder: string;
+    workingDirectory: string;
+  }
+
+  class UserSettings {
+    public person: Person;
+    public settings: Settings;
+    public user: User;
 
     constructor({
       birthdate,
@@ -61,9 +82,9 @@
       role,
       workingDirectory,
     }: UserSettingsProps) {
-      super({ email, role, name, gender, birthdate });
-      this.lastOpenFolder = lastOpenFolder;
-      this.workingDirectory = workingDirectory;
+      this.person = new Person({ name, gender, birthdate });
+      this.settings = new Settings({ lastOpenFolder, workingDirectory });
+      this.user = new User({ email, role });
     }
   }
 
